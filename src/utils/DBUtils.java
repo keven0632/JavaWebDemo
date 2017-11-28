@@ -9,10 +9,19 @@ import com.mysql.jdbc.Statement;
 
 public class DBUtils {
 	private Connection conn;
+	/**
+	 * 本地数据库连接
+	 * */
     private String url = "jdbc:mysql://127.0.0.1:3306/login"; // 指定连接数据库的URL
     private String user = "root"; // 指定连接数据库的用户名
     private String password = "123456"; // 指定连接数据库的密码
-
+    /**
+	 * 服务器MySql数据库连接
+	 * */
+//    private String url = "jdbc:mysql://116.196.90.103:3306/login"; // 指定连接数据库的URL
+//    private String user = "zhengjian"; // 指定连接数据库的用户名
+//    private String password = "123456"; // 指定连接数据库的密码
+    
     private Statement sta;
     private ResultSet rs;
 
@@ -35,7 +44,7 @@ public class DBUtils {
         try {
             sta = (Statement) conn.createStatement();
             // 执行SQL查询语句
-            rs = sta.executeQuery("select * from Login");
+            rs = sta.executeQuery("select * from login");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +71,7 @@ public class DBUtils {
         try {
             sta = (Statement) conn.createStatement();
             // 执行SQL查询语句
-            rs = sta.executeQuery("select * from Login");//获得结果集
+            rs = sta.executeQuery("select * from login");//获得结果集
             if (rs != null) {
                 while (rs.next()) {  //遍历结果集
                     if (rs.getString("user_name").equals(username)) {
@@ -82,7 +91,7 @@ public class DBUtils {
     
     //注册  将用户名和密码插入到数据库(id设置的是自增长的，因此不需要插入)
     public boolean insertDataToDB(String username, String password){
-        String sql = " insert into Login ( user_name , user_pwd ) values ( " + "'" + username
+        String sql = " insert into login ( user_name , user_pwd ) values ( " + "'" + username
                 + "', " + "'" + password + "' )";
         try {
             sta = (Statement) conn.createStatement();
